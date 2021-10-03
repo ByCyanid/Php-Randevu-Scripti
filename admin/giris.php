@@ -7,9 +7,10 @@ if(isset($_SESSION['yonetici']) ){
 }
 if($_POST)
 {
-  $kullaniciadi=$_POST["kullaniciadi"];
-  $password=$_POST["password"];
-  if(!empty($kullaniciadi) && !empty($password))
+    $kullaniciadi=filter_input(INPUT_POST, 'kullaniciadi', FILTER_SANITIZE_STRING);
+  
+    $password=filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING); 
+    if(!empty($kullaniciadi) && !empty($password))
   {
     $sorgu=$conn->prepare("SELECT * FROM yoneticiler WHERE kullaniciadi='$kullaniciadi' and password='$password'");
     $sorgu->execute();
